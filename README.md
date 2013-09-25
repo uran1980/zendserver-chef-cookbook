@@ -14,10 +14,11 @@ config.vm.provision 'chef_solo' do |chef|
   chef.cookbooks_path = ['cookbooks']
   chef.add_recipe 'zendserver'
   chef.json = {
-      :zendserver => {
-          :webserver => 'nginx',
-          :phpversion => 5.4
-      }
+        :zendserver => {
+            :webserver => 'nginx',
+            :php_version => 5.4,
+            :users => ['vagrant']
+        }
   }
 end
 ```
