@@ -20,13 +20,8 @@ elsif ws == 'nginx'
   version = "#{php} nginx --automatic"
 end
 
-execute 'extract' do
-  command 'tar -xvf /tmp/zs.tar'
-  action :run
-end
-
 execute 'install' do
-  command "sh /tmp/ZendServer-RepositoryInstaller-linux/install_zs.sh #{version}"
+  command "tar -xvf /tmp/zs.tar -C  /tmp && sh /tmp/ZendServer-RepositoryInstaller-linux/install_zs.sh #{version}"
   creates '/usr/local/zend'
   action :run
 end
