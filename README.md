@@ -10,14 +10,21 @@ Usage in Vagrant
 ================
 
 ```ruby
-     config.vm.provision 'chef_solo' do |chef|
-       chef.cookbooks_path = ['cookbooks']
-       chef.add_recipe 'zendserver'
-       chef.json = {
-           :zendserver => {
-               :webserver => 'nginx',
-               :phpversion => 5.4
-           }
+ config.vm.provision 'chef_solo' do |chef|
+   chef.cookbooks_path = ['cookbooks']
+   chef.add_recipe 'zendserver'
+   chef.json = {
+       :zendserver => {
+           :webserver => 'nginx',
+           :phpversion => 5.4
        }
+   }
      end
 ```
+
+
+Todo
+====
+1. Write kitchen tests
+2. Allow other zend server configurations
+3. Support Debian and CentOS
