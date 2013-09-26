@@ -26,6 +26,6 @@ end
 
 Todo
 ====
-1. Write kitchen tests
-2. Allow other zend server configurations
+1. Don't use the install_zs.sh but write a full chef installation to allow configure of everything
+2. Write kitchen tests
 3. Support Debian and CentOS
