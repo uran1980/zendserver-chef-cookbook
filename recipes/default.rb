@@ -33,6 +33,12 @@ end
 
 users = node[:zendserver][:users]
 
+# Create a symlink to Zend Server PHP (some PHP related cookbooks needs PHP in a known directory)
+execute 'symlink_php' do
+  command 'ln -s /usr/local/zend/bin/php /usr/local/bin/php'
+  action :run
+end
+
 if users.count > 0
   for user in users
     user_path = "/home/#{user}/"
