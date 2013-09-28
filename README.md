@@ -36,7 +36,6 @@ config.vm.provision 'chef_solo' do |chef|
 end
 ```
 
-
 Todo
 ====
 1. Don't use the install_zs.sh but write a full chef installation to allow configure of everything
