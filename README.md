@@ -6,6 +6,19 @@ zendserver Cookbook
 
 **NOTE**: I'm planning to write tests and support CentOS, please contribute ;)
 
+Attributes
+==========
+
+ - `:webserver`: The webserver to install (Apache or Nginx)
+ - `:php_version`: The PHP version to install 5.3 or 5.3
+ - `:users`: Users on who update .bashrc / .zshrc
+
+```ruby
+default[:zendserver][:webserver] = "nginx"
+default[:zendserver][:php_version] = 5.4
+default[:zendserver][:users] = ['vagrant']
+```
+
 Usage in Vagrant
 ================
 
