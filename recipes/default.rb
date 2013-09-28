@@ -7,6 +7,7 @@ cookbook_file 'ZendServer-6.1.0-RepositoryInstaller-linux.tar' do
   backup false
   path '/tmp/zs.tar'
   action :create_if_missing
+  not_if { ::File.exists?('/usr/local/zend') }
 end
 
 ws = node[:zendserver][:webserver]
@@ -24,11 +25,7 @@ execute 'install' do
   command "tar -xvf /tmp/zs.tar -C  /tmp && sh /tmp/ZendServer-RepositoryInstaller-linux/install_zs.sh #{version}"
   creates '/usr/local/zend'
   action :run
-end
-
-execute 'update_etc_profile' do
-  command "echo '#{path}' >> /etc/profile && echo '#{ld_library}' >> /etc/profile"
-  action :run
+  notifies :run, 'execute[update_profiles]', :immediately
 end
 
 users = node[:zendserver][:users]
@@ -40,20 +37,19 @@ execute 'symlink_php' do
   action :run
 end
 
-if users.count > 0
-  for user in users
-    user_path = "/home/#{user}/"
-    if File.exist?("#{user_path}.bashrc")
-      execute 'update_bashrc' do
+execute 'update_profiles' do
+  command "echo '#{path}' >> /etc/profile && echo '#{ld_library}' >> /etc/profile"
+  if users.count > 0
+    for user in users
+      user_path = "/home/#{user}/"
+      if File.exist?("#{user_path}.bashrc")
         command "echo '#{path}' >> #{user_path}.bashrc && echo '#{ld_library}' >> #{user_path}.bashrc"
-        action :run
       end
-    end
-    if File.exist?("#{user_path}.zshrc")
-      execute 'update_zshrc' do
+      if File.exist?("#{user_path}.zshrc")
         command "echo '#{path}' >> #{user_path}.zshrc && echo '#{ld_library}' >> #{user_path}.zshrc"
-        action :run
       end
     end
   end
+  action :nothing
 end
+
