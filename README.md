@@ -38,23 +38,33 @@ end
 
 chef-solo Example
 =================
+
+Fetch the cookbook
+------------------
+Add this cookbook to the configured cookbooks path in the solo.rb
+(you can use the following command to clone in the chef-solo cookbooks directory - requires GIT)
+
+```bash
+   mkdir -p /var/chef-solo/cookbooks &&
+   git clone https://github.com/fontanalorenzo/zendserver-chef-cookbook /var/chef-solo/cookbooks/zendserver-chef-cookbook
+```
+
 solo.rb
 -------
-- Create the `solo.rb` file
+If you haven't already done yet, create a `solo.rb` file.
 ```ruby
 file_cache_path "/var/chef-solo"
 cookbook_path "/var/chef-solo/cookbooks"
 ```
 
-- Add this cookbook to the configured cookbooks path in the solo.rb
-( you can use the following command to clone in the chef-solo cookbooks directory)
+node.json
+---------
+Create the `node.json` file with the following content or update your existing one
+configuring the zendserver cookbook.
+- The users config is not mandatory,
+- The webserver config could also be set to nginx,
+- The php_version config could also be set to 5.3
 
-```bash
-   git clone https://github.com/fontanalorenzo/zendserver-chef-cookbook /var/chef-solo/cookbooks/zendserver-chef-cookbook
-```
-
-- Crete the `node.json` file with the following content
-(you can omit users, and configure webserver also to nginx and php_version to 5.3)
 ```json
 {
   "zendserver": {
