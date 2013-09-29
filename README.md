@@ -14,8 +14,8 @@ Attributes
  - `:users`: Users who update .bashrc / .zshrc
 
 ```ruby
-default[:zendserver][:webserver] = "nginx"
-default[:zendserver][:php_version] = 5.4
+default[:zendserver][:webserver] = "nginx" # or apache
+default[:zendserver][:php_version] = 5.4 # or 5.3
 default[:zendserver][:users] = ['vagrant']
 ```
 
