@@ -19,7 +19,7 @@ default[:zendserver][:php_version] = 5.4
 default[:zendserver][:users] = ['vagrant']
 ```
 
-Usage in Vagrant
+Vagrant Example
 ================
 
 ```ruby
@@ -34,6 +34,36 @@ config.vm.provision 'chef_solo' do |chef|
         }
   }
 end
+```
+
+chef-solo Example
+=================
+solo.rb
+-------
+- Create the `solo.rb` file
+```ruby
+file_cache_path "/var/chef-solo"
+cookbook_path "/var/chef-solo/cookbooks"
+```
+
+- Add this cookbook to the configured cookbooks path in the solo.rb
+( you can use the following command to clone in the chef-solo cookbooks directory)
+
+```bash
+   git clone https://github.com/fontanalorenzo/zendserver-chef-cookbook /var/chef-solo/cookbooks/zendserver-chef-cookbook
+```
+
+- Crete the `node.json` file with the following content
+(you can omit users, and configure webserver also to nginx and php_version to 5.3)
+```json
+{
+  "zendserver": {
+    "webserver": "apache",
+    "php_version": 5.4,
+    "users": ["renzo"]
+  },
+  "run_list": [ "recipe[zendserver-chef-cookbook]" ]
+}
 ```
 
 Todo
