@@ -76,6 +76,12 @@ configuring the zendserver cookbook.
 }
 ```
 
+Run!
+----
+```bash
+chef-solo -c ~/solo.rb -j ~/node.json
+```
+
 Todo
 ====
 1. Don't use the install_zs.sh but write a full chef installation to allow configure of everything
