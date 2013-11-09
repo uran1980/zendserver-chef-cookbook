@@ -9,12 +9,10 @@ Attributes
 
  - `:webserver`:  Available options: apache, nginx
  - `:php_version`: Available options: 5.3, 5.4
- - `:users`: List of users for which update the .bashrc and .zshrc (if any).
 
 ```ruby
 default[:zendserver][:webserver] = "nginx" # or apache
 default[:zendserver][:php_version] = 5.4 # or 5.3
-default[:zendserver][:users] = ['vagrant', 'renzo']
 ```
 
 Vagrant Example
@@ -27,8 +25,7 @@ config.vm.provision 'chef_solo' do |chef|
   chef.json = {
         :zendserver => {
             :webserver => 'nginx',
-            :php_version => 5.4,
-            :users => ['vagrant']
+            :php_version => 5.4
         }
   }
 end
@@ -58,7 +55,6 @@ node.json
 ---------
 Create the `node.json` file with the following content or update your existing one
 configuring the zendserver cookbook.
-- The users config is not mandatory,
 - The webserver config could also be set to nginx,
 - The php_version config could also be set to 5.3
 
@@ -66,8 +62,7 @@ configuring the zendserver cookbook.
 {
   "zendserver": {
     "webserver": "apache",
-    "php_version": 5.4,
-    "users": ["renzo"]
+    "php_version": 5.4
   },
   "run_list": [ "recipe[zendserver-chef-cookbook]" ]
 }

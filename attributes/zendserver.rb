@@ -1,3 +1,2 @@
 default[:zendserver][:webserver] = "apache"
 default[:zendserver][:php_version] = 5.4
-default[:zendserver][:users] = []

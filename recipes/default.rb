@@ -28,8 +28,6 @@ execute 'install' do
   notifies :run, 'execute[update_profiles]', :immediately
 end
 
-users = node[:zendserver][:users]
-
 # Create a symlink to Zend Server PHP (some PHP related cookbooks needs PHP in a known directory)
 execute 'symlink_php' do
   command 'ln -s /usr/local/zend/bin/php /usr/local/bin/php'
@@ -39,17 +37,6 @@ end
 
 execute 'update_profiles' do
   command "echo '#{path}' >> /etc/profile && echo '#{ld_library}' >> /etc/profile"
-  if users.count > 0
-    for user in users
-      user_path = "/home/#{user}/"
-      if File.exist?("#{user_path}.bashrc")
-        command "echo '#{path}' >> #{user_path}.bashrc && echo '#{ld_library}' >> #{user_path}.bashrc"
-      end
-      if File.exist?("#{user_path}.zshrc")
-        command "echo '#{path}' >> #{user_path}.zshrc && echo '#{ld_library}' >> #{user_path}.zshrc"
-      end
-    end
-  end
   action :nothing
 end
 
